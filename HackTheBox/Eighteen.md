@@ -8,7 +8,6 @@ sudo nmap -sSVC -vv -p- <IP> -T4 -oN nmap-full
 ![](../Images/Pasted%20image%2020260421233342.png)
 - On port 80 is a Microsoft IIS which then resolved to `eighteen.htb`.
 - On port 1433 is a MSSQL server joined to a domain `EIGHTEEN`
-- 
 ![](../Images/Pasted%20image%2020260421233215.png)
 The provided credentials cannot be used to login to this service. We try fuzzing for some credentials but the error message seems consistent.
 Let's try create an account.
@@ -49,4 +48,4 @@ So check group memberships by `whoami /groups`:
 ![](../Images/Pasted%20image%2020260423110037.png)
 By loading `PowerSploit/PowerView` on the current user's Module path, I ran `Invoke-ACLScanner` to check for ACLs.
 ![](../Images/Pasted%20image%2020260423114012.png)
-So adam has the rights to CreateChild in Staff OU. We can escalate privilege by using a technique called 'BadSuccessor'.
+So adam has the rights to CreateChild in Staff OU. Researching online for some escalation techniques related, I found a technique called 'BadSuccessor'.

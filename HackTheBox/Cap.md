@@ -24,15 +24,12 @@ okay the one IP 192.168.196.16 seems like an FTP client trying to access the FTP
 ```
 ftp nathan@IP
 ```
-Specify the password and boom, we successfully connected to FTP server.
+Specify the password and we successfully connected to FTP server.
 ![Pasted image 20260310172930](../Images/Pasted%20image%2020260310172930.png)
 - `ls` to list all the files in current folder, we saw a potential user.txt that might contain the flag
 - `get user.txt` to download the file to local machine
-
 We got the user flag.
-tried `cd ..` command just to test, and we got out of the directory.
-So the FTP server might not be configured to restrict folder access?
-I then can ssh to his machine using the same credential: 
+I then tried ssh to his machine using the same credential: 
 ```
 ssh nathan@IP
 ```
@@ -56,10 +53,10 @@ Again inside the ssh session, download the script, then I start a `nc` listener 
 python3.8 script.py
 ```
 ![Pasted image 20260310190242](../Images/Pasted%20image%2020260310190242.png)
-And boom, I've got the root shell.
-
+And I've got the root shell.
 ## Summary
-- New tool linPEAS learned.
-
+- This machine shows how unencrypted traffic could leaks your credentials (in this case is FTP).
+- It's clearly that the user is vulnerable to password reuse that gives me the initial foothold to the machine.
+- New tool linPEAS learned, this could be my last resort for when my enumeration cannot resolve anything.
 ![Pasted image 20260310193020](../Images/Pasted%20image%2020260310193020.png)
 Pretty nice number so I'm gonna save it here.
