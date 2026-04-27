@@ -34,7 +34,15 @@ From the url I was able to identify that this is an elFinder instance, there are
 ![](../Images/Pasted%20image%2020260425152010.png)
 We got elFinder version 2.1.47, searching online gives us CVE-2019-9194.
 ## [CVE-2019-9194](https://www.rapid7.com/db/modules/exploit/unix/webapp/elfinder_php_connector_exiftran_cmd_injection/)
-
+This vulnerability affects elFinder version prior to 2.1.48.
+"The PHP connector component allows unauthenticated users to upload
+files and perform file modification operations, such as resizing and
+rotation of an image. The file name of uploaded files is not validated,
+allowing shell metacharacters.
+When performing image operations on JPEG files, the filename is passed
+to the `exiftran` utility without appropriate sanitization, causing
+shell commands in the file name to be executed, resulting in remote
+command injection as the web server user."
 ## Exploitation
 For simplicity we can use Metasploit framework and configure as so:
 ![](../Images/Pasted%20image%2020260425152540.png)
@@ -70,4 +78,4 @@ sudo look '' /path/to/file
 ```
 So I can easily abuse this and read the root flag:
 ![](../Images/Pasted%20image%2020260425163349.png)
-Alternatively, we can use this to get root's sensitive data like private ssh keys to then authenticate as root user on the machine.
+Alternatively, we can use this to get root's sensitive data like private ssh keys to then authenticate as root user on the machine, or just read the `/etc/shadow` and crack the root's password.
