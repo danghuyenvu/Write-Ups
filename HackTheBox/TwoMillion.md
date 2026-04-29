@@ -19,7 +19,7 @@ Can't get any useful informations out of that error message, the error parameter
 Filtering the fuzzed directories with Status code 200 showed me two other potential target which is the hidden `/register` and `/invite`:
 ![Pasted image 20260323221114](../Images/Pasted%20image%2020260323221114.png)
 ![Pasted image 20260323221813](../Images/Pasted%20image%2020260323221813.png)
-![Pasted image 20260323221827](../Images/Pasted%20image%2020260323221827.png)
+![Pasted image 20260323221827](../Images/Pasted%20image%2020260323221827.png)  
 Nvm the `/invite` page wasn't hidden it's just that I've skipped the part in the FAQ that redirect me to it:
 ![Pasted image 20260323222040](../Images/Pasted%20image%2020260323222040.png)
 The answer shows that the `/invite` is an entry-level challenge that I have to solve in order to join the "Hack The Box".
@@ -28,7 +28,7 @@ Okay so it seems like I can't register until I've found the invite code
 ![Pasted image 20260323222713](../Images/Pasted%20image%2020260323222713.png)
 Cause the invite code is sticked into my register data. How about trying some SQL injection? It could be that the server might query from the invite code database maybe. No it doesn't seem to be vulnerable to SQL injection.
 So by inspecting the page source, I saw that the application does include some JavaScript scripts 
-![Pasted image 20260323225025](../Images/Pasted%20image%2020260323225025.png)
+![Pasted image 20260323225025](../Images/Pasted%20image%2020260323225025.png)  
 One of them named `inviteapi.min.js`, so this could be the one that has to mess with those invite codes. When I checked the script file, the code inside seems to be obfuscated (Nah it just because I don't really understand 100% of them so I asked Copilot and it says that they are obfuscated, and of course it does show me the plain one). So inside the `/js/inviteapi.min.js` they declare two functions: `verifyInviteCode` (which does the job to send the data to an endpoint at `/api/v1/invite/verify`), `makeInviteCode`, which sends the data to an endpoint at `/api/v1/invite/how/to/generate`. So by the name of it, then it should do what I think it can do. So I write a simple curl request to that endpoint:
 ```bash
 curl -X POST http://2million.htb/api/v1/invite/how/to/generate -d '{"code": "hahaha"}'
@@ -39,7 +39,7 @@ The response data after decrypted:
 So it looks like we are on the right track, I supposed this one is gonna be the real endpoint to generate myself an invite code.
 ![Pasted image 20260323230327](../Images/Pasted%20image%2020260323230327.png)
 Okay so we've finally got ourself the invite code, I think we are able to register now using the decoded code (base64).
-![Pasted image 20260323230534](../Images/Pasted%20image%2020260323230534.png)
+![Pasted image 20260323230534](../Images/Pasted%20image%2020260323230534.png)  
 After done registering and logging in, I ended of in a homepage:
 ![Pasted image 20260323230810](../Images/Pasted%20image%2020260323230810.png)
 So now I've known that there is an exposed api endpoint that can change user's settings, which may be used to escalate my account to admin user.
