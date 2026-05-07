@@ -1,4 +1,4 @@
-[Snapped]() is a Hard machine on HackTheBox
+[Snapped](https://app.hackthebox.com/machines/Snapped) is a Hard machine on HackTheBox
 Nmap scan:
 ```bash
 nmap -sVC -vv -p- <IP> -T4 -oN nmap-full

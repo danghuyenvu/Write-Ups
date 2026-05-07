@@ -1,4 +1,4 @@
-[Support]() is an Easy rated machine on HackTheBox
+[Support](https://app.hackthebox.com/machines/Support) is an Easy rated machine on HackTheBox
 ## Reconnaissance
 ```bash
 
