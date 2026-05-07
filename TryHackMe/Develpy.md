@@ -69,5 +69,4 @@ cat root.sh
 python /root/company/media/*.py
 ```
 So it runs some python scripts in `/root/company/media/` directory.
-but the problem here is: it's using python, not the absolute path, which suggests I should try for a $PATH injection attempt
 
